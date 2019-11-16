@@ -1,0 +1,12 @@
+            EXTERNAL MESH INITIALIZATION FILE
+Meshfile:                          ring_1x2_544_nodes.msh
+Conductivity:                      x**2+y**2
+Number of boundary conditions:     2
+Boundary condition 1:              0
+Boundary condition 2:              1
+Plots:
+    Voltage:             V: true
+    Electric field:     nE: true
+    Charge density:    rho: true
+    Current density:    nJ: true
+    Group plot:         GP: false

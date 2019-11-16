@@ -1,0 +1,16 @@
+            EXTERNAL MESH INITIALIZATION FILE
+Meshfile:                          ceramic_capacitor_10.msh
+Conductivity:                      1
+Number of boundary conditions:     6
+Boundary condition 1:              1
+Boundary condition 2:              0
+Boundary condition 3:              -1
+Boundary condition 4:              Neumann Homogeneus BC
+Boundary condition 5:              2
+Boundary condition 6:              Neumann Homogeneus BC
+Plots:
+    Voltage:             V: true
+    Electric field:     nE: true
+    Charge density:    rho: true
+    Current density:    nJ: true
+    Group plot:         GP: false

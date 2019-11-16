@@ -1,0 +1,15 @@
+            EXTERNAL MESH INITIALIZATION FILE
+Meshfile:                          abstract_shape_0.5x0.5_273_nodes.msh
+Conductivity:                      1
+Number of boundary conditions:     5
+Boundary condition 1:              0
+Boundary condition 2:              2
+Boundary condition 3:              Neumann Homogeneus BC
+Boundary condition 4:              1
+Boundary condition 5:              Neumann Homogeneus BC
+Plots:
+    Voltage:             V: true
+    Electric field:     nE: false
+    Charge density:    rho: false
+    Current density:    nJ: false
+    Group plot:         GP: false
