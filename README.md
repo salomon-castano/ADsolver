@@ -28,7 +28,7 @@ Plots:
 * Meshfile: file that contains the importing mesh
 * Conductivity: Electrical conductivity of the medium, it can be variable, non elementary functions require numpy and therefore they must be preceded by "np.".
 * Number of boundary conditions: It can be less or equal to the number of borders (physical groups).
-* Boundary condition *i*: It corresponds to the physical group with tag *i*. It can be variable.
+* Boundary condition *i*: It is associated to the physical group with tag *i*. It can be variable.
 * Plots: Indicates to make a quick surface plot of the variable assigned a value of *true* (*Group plot* displays the four variables in the same plot).
 
 The init file for internally generated mesh is very similar but in this case the dimensions of the rectangle (in this case the mesh is mapped) and the number of nodes in a vertical and horizontal edges must be specified in the init file. Below an example is shown.
