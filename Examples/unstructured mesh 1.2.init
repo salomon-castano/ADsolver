@@ -4,9 +4,9 @@ Conductivity:                      1
 Number of boundary conditions:     5
 Boundary condition 1:              0
 Boundary condition 2:              2
-Boundary condition 3:              Neumann Homogeneus BC
+Boundary condition 3:              Neumann Homogeneous BC
 Boundary condition 4:              1
-Boundary condition 5:              Neumann Homogeneus BC
+Boundary condition 5:              Neumann Homogeneous BC
 Plots:
     Voltage:             V: true
     Electric field:     nE: false

@@ -119,9 +119,9 @@ for i, field_node in enumerate(E):
     nJ[i] = (np.dot(J[i,:],J[i,:]))**0.5
     nE[i] = (np.dot(E[i,:],E[i,:]))**0.5
     rho[i] = np.dot(grad_cond[i,:],E[i,:])/(conductivity[i])*epsilon
-    
+
 #%% Display results
-    
+
 #Export results in vtk file
 zeros = np.zeros((len(pts),1))
 mesh.point_data["electrostatic_potential"] = V
