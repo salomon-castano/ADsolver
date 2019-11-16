@@ -39,9 +39,9 @@ y length:      10
 Number of nodes along the x edge:        13
 Number of nodes along the y edge:        11
 Conductivity:                      x + 1
-Boundary condition 1:              Neumann Homogeneus BC
+Boundary condition 1:              Neumann Homogeneous BC
 Boundary condition 2:              y-1
-Boundary condition 3:              Neumann Homogeneus BC
+Boundary condition 3:              Neumann Homogeneous BC
 Boundary condition 4:              1-y
 Plots:
     Voltage:             V: true
