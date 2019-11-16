@@ -27,7 +27,7 @@ Plots:
 ```
 * Meshfile: file that conteins the importing mesh
 * Conductivity: Electrical conductivity of the medium, it can be variable, non elementary functions require numpy and therefore they must be preceded by "np.".
-* Number of boudary conditions: ...it's rather obvious.
+* Number of boudary conditions: It can be less or equal to the number of borders (physical groups).
 * Boundary condition *i*: It corresponds to the physical group with tag *i*. It can be variable.
 * Plots: Indicates to make a quick surface plot of the variable assignated a value of *true* (*Group plot* displays the four variables in the same plot).
 
