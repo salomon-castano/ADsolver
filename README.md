@@ -2,8 +2,8 @@
 
 ADsolver is a FEM solver that can deal with electromagnetic problems related to conduction in lossy dielectrics. It can be used to approximate the **electric potential, electric field, charge density and current density** within a bidimensional geometry with Dirichlet or Neumann homogeneous border conditions. It does not have a graphic interphase nor preprocessing neither postprocessing routines, so it is recommended to use Gmesh to create the mesh and Paraview to visualize the results. Below the utilization of the software is shortly explained.
 
-## Meshing:
-There are two ways to mesh: externally and within the software. If an externally generated mesh is being used, then it is important have in acount two things:
+## Meshing
+There are two ways to mesh: externally and within the software. If an externally generated mesh is being used, then it is important have in account two things:
 * All elements must of "quad" type.
 * All the borders must be defined as physical groups with an ordered numerical tag that ranges from 1 to n, being n the number of borders.
 
@@ -25,11 +25,11 @@ Plots:
     Current density:    nJ: true
     Group plot:         GP: false
 ```
-* Meshfile: file that contains the importing mesh
-* Conductivity: Electrical conductivity of the medium, it can be variable, non elementary functions require numpy and therefore they must be preceded by "np.".
-* Number of boundary conditions: It can be less or equal to the number of borders (physical groups).
-* Boundary condition *i*: It corresponds to the physical group with tag *i*. It can be variable.
-* Plots: Indicates to make a quick surface plot of the variable assigned a value of *true* (*Group plot* displays the four variables in the same plot).
+* Meshfile: file that contains the importing mesh.
+* Conductivity: electrical conductivity of the medium, it can be variable, non elementary functions require numpy and therefore they must be preceded by "np." e.g. np.exp(y).
+* Number of boundary conditions: it can be less or equal to the number of borders (physical groups).
+* Boundary condition *i*: it is associated to the physical group with tag *i*. It can be variable.
+* Plots: indicates to make a quick surface plot of the variable assigned a value of *true* (*Group plot* displays the four variables in the same plot).
 
 The init file for internally generated mesh is very similar but in this case the dimensions of the rectangle (in this case the mesh is mapped) and the number of nodes in a vertical and horizontal edges must be specified in the init file. Below an example is shown.
 ```
