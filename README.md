@@ -25,7 +25,7 @@ Plots:
     Current density:    nJ: true
     Group plot:         GP: false
 ```
-* Meshfile: file that contains the importing mesh
+* Meshfile: file that contains the importing mesh.
 * Conductivity: electrical conductivity of the medium, it can be variable, non elementary functions require numpy and therefore they must be preceded by "np." e.g. np.exp(y).
 * Number of boundary conditions: it can be less or equal to the number of borders (physical groups).
 * Boundary condition *i*: it is associated to the physical group with tag *i*. It can be variable.
