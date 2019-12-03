@@ -16,7 +16,7 @@
                    gaussian integral
                    
  normE2_J:         X: points of the element, (ri,sj): point being evaluated in
-                   gaussian integral, potential_element: Potential in points 
+                   gaussian integral, cond_nodes: conductivity in points 
                    of the element
                    
  gauss_integrate:  X: points of the element, cond_nodes: conductivity in
@@ -28,9 +28,9 @@
                    
  normE2_J:         J: Jacobian, nE2: squared norm of the electric field
                    
- gauss_integrate:  U: Guassian integral of the energy over the given element
-
- Nelson José Bayona, Salomón Castaño
+ gauss_integrate:  a: Guassian integral of the voltage over the given element
+ 
+ Salomón Castaño
  University EAFIT, Sciences Department, Physics Engineering, Numeric Methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
@@ -53,15 +53,18 @@ def operators(func_nodes,X,ri,sj):
     
     return phi, DT, J, detJ, invJ, grad
 
-def gauss_integrate(cond_nodes, X, m, n):
-    a = 0
+def gauss_integrate(cond_nodes, X, nn):
+    k_local = np.zeros((nn,nn))
+    
     for i, ri in enumerate(r):
         for j, sj in enumerate(r):
             phi, DT, J, detJ, invJ, d_cond = operators(cond_nodes, X, ri, sj)
-            #Evaluate the funtion to be integrated in point ri,sj and multiply
-            #by the given weights
-            Dm = invJ @ DT[:,m]
-            Dn = invJ @ DT[:,n]
-            a += (-np.dot(Dm, Dn) * cond_nodes[n] + phi[n] * np.dot(Dm, \
-                  d_cond)) * detJ * w[i] * w[j]
-    return a
+            for n in range(nn):
+                for m in range(nn):
+                    #Evaluate the funtion to be integrated in point ri,sj and 
+                    #multiply by the given weights
+                    Dm = invJ @ DT[:,m]
+                    Dn = invJ @ DT[:,n]
+                    k_local[n,m] += (-np.dot(Dm, Dn) * cond_nodes[n] + phi[n] \
+                           * np.dot(Dm, d_cond)) * detJ * w[i] * w[j]
+    return k_local
