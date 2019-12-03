@@ -25,7 +25,7 @@
  PM_solutions.vtk   File with the obtained variables and elements, nodes and
                     coordinates.
 
- Salomón Castaño
+ Nelson José Bayona, Salomón Castaño
  Universidad EAFIT, Sciences Department, Physics Engineering, Numeric Methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
@@ -44,40 +44,40 @@ epsilon = 1
 print('\nWhat kind of mesh is to be used? \n1. Local structurated mesh \
       \n2. Externally generated mesh')
 ini = int(input("Write the associated number "))
-#ini = 2
 stage = 0
 while stage == 0:
     if ini == 1:
-        tic, element, pts, conductivity, B_nodes, b_global, nx, ny, mesh, Label, plotvar = init.structured()
+        tic = default_timer() #Records the starting time
+        element, pts, conductivity, B_nodes, b_global, nx, ny, mesh, Label, plotvar = init.structured()
         stage = 1
     if ini == 2:
-        tic, element, pts, conductivity, B_nodes, b_global, mesh, Label, plotvar = init.unstructured()
+        tic = default_timer() #Records the starting time
+        element, pts, conductivity, B_nodes, b_global, mesh, Label, plotvar = init.unstructured()
         stage = 1
     if ini != 1 and ini != 2:
         ini = int(input("The number entered is out of range, please rentered it "))
 
-toc_ini = default_timer()
-
 #%% Sums the contribution of each element to the energy in the capacitor
 
-num_e = len(element)/50
-cont = num_e
+num_e = len(element)/92
+print('\nProgress                                                    \
+                            End')
 j = 1
-print('\nProgress                                      End')
 k_global = np.zeros((len(pts),len(pts)))
 for i, nodes in enumerate(element):
     nn = len(nodes)
+    k_local = 0
     X = pts[nodes] #Position of the element nodes
     cond_nodes = conductivity[nodes] #conductivity in nodes of the element
-    k_local = fc.gauss_integrate(cond_nodes, X, nn)
     for n in range(nn):
         for m in range(nn):
-            k_global[nodes[n],nodes[m]] += k_local[n,m]
-    if i > cont:
-        j += 1
+            k_local = fc.gauss_integrate(cond_nodes, X, m, n)
+            k_global[nodes[n],nodes[m]] += k_local
+    if i > num_e:
         print("%", end = '')
-        cont = j*num_e
-print('\n')
+        j += 1
+        num_e = j*len(element)/92
+
 for node in B_nodes:
     k_global[node,:] = np.zeros(len(pts))
     k_global[node,node] = 1
@@ -89,8 +89,6 @@ toc_assem = default_timer()
 V = np.linalg.solve(k_global,b_global)
 
 toc_solve = default_timer()
-
-#%% Post-processing
 
 E = np.zeros((len(pts),2))
 grad_cond = np.zeros((len(pts),2))
@@ -122,6 +120,8 @@ for i, field_node in enumerate(E):
     nE[i] = (np.dot(E[i,:],E[i,:]))**0.5
     rho[i] = np.dot(grad_cond[i,:],E[i,:])/(conductivity[i])*epsilon
 
+#%% Display results
+
 #Export results in vtk file
 zeros = np.zeros((len(pts),1))
 mesh.point_data["electrostatic_potential"] = V
@@ -132,9 +132,6 @@ mesh.field_data["electrostatic_field"] = np.append(E, zeros, axis=1)
 mesh.field_data["current_density"] = np.append(J, zeros, axis=1)
 meshio.write("PM_solutions.vtk", mesh)
 
-toc_post = default_timer()
-
-#%% Display results
 #plot results
 if ini == 1:
     for i in range(len(Label)):
@@ -153,9 +150,8 @@ else:
 toc = default_timer() #Record the ending time
 
 #Display computation times
-print('\nSimulation time:     ', toc - tic,'s')
-print('Initialization time: ', toc_ini - tic,'s')
-print('Assembly time:       ', toc_assem - toc_ini,'s')
-print('Solving time:        ', toc_solve - toc_assem,'s')
-print('Postprocessing time: ', toc_post - toc_solve,'s')
-print('Plotting time:       ', toc - toc_post,'s')
+print('\n')
+print('\nSimulation time:      ', toc - tic,'s')
+print('\nAssembly time:       ', toc_assem - tic,'s')
+print('\nSolving time:        ', toc_solve - toc_assem,'s')
+print('\nPlotting time:       ', toc - toc_solve,'s')
