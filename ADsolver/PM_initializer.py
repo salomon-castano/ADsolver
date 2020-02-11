@@ -26,24 +26,23 @@ b_global:       Global load vector
 mesh:           Mesh for exporting in vtk
 plotvar:        List with the variables to be plotted
 Lable:          List of lables for plots
-nx, ny          Number of nodes in the x and y edges if the mesh is
-structurated
+nx, ny:         Number of nodes in the x and y edges if the mesh is
+                structurated
 
 
-
- Nelson José Bayona, Salomón Castaño
+ Salomón Castaño
  Universidad EAFIT, Sciences Department, Physics Engineering, Numeric Methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """
 import meshio
 import numpy as np
-
+from timeit import default_timer
 
 #%% Read an external mesh
 def unstructured():
     datafile = input("Write the initialitation file name (including the extesion) ")
-#    datafile = 'unstructured mesh 1.3.init'
-
+    tic = default_timer() #Records the starting time
+    # datafile = 'unstructured mesh 1.3.init'
     #Get the data from the initialization file
     data = []
     with open(datafile) as dataf:
@@ -98,12 +97,14 @@ def unstructured():
     cond_function = lambda x, y : eval(cond)
     for i, points in enumerate(pts):
         conductivity[i] = cond_function(points[0],points[1])
-    return element, pts, conductivity, B_nodes, b_global, mesh, Label, plotvar
+    return tic, element, pts, conductivity, B_nodes, b_global, mesh, Label, plotvar
+
 #%% create a structured mesh
 
 def structured():
     datafile = input("Write the initialitation file name (including the extesion) ")
-#    datafile = 'structured mesh 1.0.init'
+    tic = default_timer() #Records the starting time
+    # datafile = 'structured mesh 1.0.init'
     #Get the data from the initialization file
     data = []
     with open(datafile) as dataf:
@@ -111,8 +112,8 @@ def structured():
             inner_list = [elt.strip() for elt in line1.split(':')]
             data.append(inner_list)
     start0 = 1
-    a = int(data[start0+0][1:][0])
-    b = int(data[start0+1][1:][0])
+    a = float(data[start0+0][1:][0])
+    b = float(data[start0+1][1:][0])
     nx = int(data[start0+2][1:][0])
     ny = int(data[start0+3][1:][0])
     cond = data[start0+4][1:][0]
@@ -153,18 +154,6 @@ def structured():
         for i in range(0,nx):
             b_global[i] = fx[i,0]
             B_nodes.append(i)
-    if BC2 != 'Neumann Homogeneous BC':
-        fx[:,0] = eval(BC2)
-        for i in range(0,nx):
-            l = i + n - nx
-            b_global[l] = fx[i,0]
-            B_nodes.append(l)
-    if BC3 != 'Neumann Homogeneous BC':
-        fy[:,1] = eval(BC3)
-        for j in range(0,ny):
-            i = nx*j
-            b_global[i] = fy[j,1]
-            B_nodes.append(i)
     if BC1 != 'Neumann Homogeneous BC':
         fy[:,1] = eval(BC1)
         for j in range(0,ny):
@@ -172,6 +161,18 @@ def structured():
             b_global[l] = fy[j,1]
             B_nodes.append(l)
     B_nodes = list(set(B_nodes))
+    if BC2 != 'Neumann Homogeneous BC':
+        fx[:,1] = eval(BC2)
+        for i in range(0,nx):
+            l = i + n - nx
+            b_global[l] = fx[i,1]
+            B_nodes.append(l)
+    if BC3 != 'Neumann Homogeneous BC':
+        fy[:,0] = eval(BC3)
+        for j in range(0,ny):
+            i = nx*j
+            b_global[i] = fy[j,0]
+            B_nodes.append(i)
 
     #Find the position of the points
     X1 = np.zeros(n)
@@ -201,4 +202,4 @@ def structured():
     #Generate the mesh file and return the results
     zeros = np.zeros((len(pts),1))
     mesh = meshio.Mesh(np.append(pts, zeros, axis=1), {"quad": element})
-    return element, pts, conductivity, B_nodes, b_global, nx, ny, mesh, Label, plotvar
+    return tic, element, pts, conductivity, B_nodes, b_global, nx, ny, mesh, Label, plotvar

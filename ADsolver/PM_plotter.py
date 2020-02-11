@@ -27,7 +27,7 @@
  svg files of the plots made
 
 
- Nelson José Bayona, Salomón Castaño
+ Salomón Castaño
  Universidad EAFIT, Sciences Department, Physics Engineering, Numeric Methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 """

@@ -1,16 +1,16 @@
             STRUCTURED MESH INITIALIZATION FILE
-Width:      12
+Width:      10
 Length:     10
-Number of nodes along the x axis:        13
+Number of nodes along the x axis:        11
 Number of nodes along the y axis:        11
 Conductivity:                      x + 1
-Boundary condition 1:              Neumann Homogeneous BC
-Boundary condition 2:              y-1
+Boundary condition 1:              10
+Boundary condition 2:              0
 Boundary condition 3:              Neumann Homogeneous BC
-Boundary condition 4:              1-y
+Boundary condition 4:              Neumann Homogeneous BC
 Plots:
     Voltage:             V: true
-    Electric field:     nE: true
-    Charge density:    rho: true
-    Current density:    nJ: true
+    Electric field:     nE: false
+    Charge density:    rho: false
+    Current density:    nJ: false
     Group plot:         GP: false
