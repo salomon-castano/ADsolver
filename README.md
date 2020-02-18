@@ -1,6 +1,6 @@
 # ADsolver
 
-ADsolver is a FEM solver that can deal with electromagnetic problems related to conduction in lossy dielectrics. It can be used to approximate the **electric potential, electric field, charge density and current density** within a bidimensional geometry with Dirichlet or Neumann homogeneous border conditions. It does not have a graphic interphase nor preprocessing neither advanced visualization routines, so it is recommended to use Gmesh to create the mesh and Paraview to visualize the results. Below the utilization of the software is shortly explained.
+ADsolver is a FEM solver that can deal with stationary electromagnetic problems related to conduction in lossy dielectrics. It can be used to approximate the **electric potential, electric field, charge density and current density** within a bidimensional geometry with a given conductivity (it can be dependent on the coordinate) and Dirichlet or Neumann homogeneous border conditions for the electric potential. It does not have a graphic interphase nor preprocessing neither advanced visualization routines, so it is recommended to use Gmesh to create the mesh and Paraview to visualize the results. Below the utilization of the software is shortly explained.
 
 ## Meshing
 There are two ways to mesh: externally and within the software. If an externally generated mesh is being used, then it is important have in account two things:
